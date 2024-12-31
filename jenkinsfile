@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('GIT CLONE') {
+            steps {
+                echo 'GIT is CLONE to workspace'
+				git branch: 'main', url: 'https://github.com/devopstraininghub/mindcircuit14.git'
+            }
+		}	
+		stage('Build .WAR') {
+            steps {
+                echo 'Build .WAR file by maven'
+				sh 'mvn clean install'
+            }
+		}	
+		stage('Deploy') {
+            steps {
+                echo 'Deploy application'
+				deploy adapters: [tomcat9(credentialsId: 'Anoop', path: '', url: 'http://ec2-3-84-159-41.compute-1.amazonaws.com/')], contextPath:'null', war: '**/*.war'
+            }
+        }
+    }
+}
