@@ -17,7 +17,7 @@ pipeline {
 		stage('Deploy') {
             steps {
                 echo 'Deploy application'
-				deploy adapters: [tomcat9(credentialsId: 'Anoop', path: '', url: 'http://ec2-3-84-159-41.compute-1.amazonaws.com/')], contextPath:'null', war: '**/*.war'
+				deploy adapters: [tomcat9(credentialsId: 'Anoop', path: '', url: 'http://ec2-3-84-159-41.compute-1.amazonaws.com:8081/')], contextPath:'null', war: '**/*.war'
             }
         }
     }
