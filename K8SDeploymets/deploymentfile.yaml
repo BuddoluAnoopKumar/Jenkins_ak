@@ -1,34 +1,27 @@
-
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fb-deploy
+  name: voting-app-deployment
   labels:
-    app: facebook
-    env: lab 
-
+    app: voting-app
+    name: voting-app-deployment
 spec:
   selector:
     matchLabels:
-      app: facebook
-  replicas: 1
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-
+      name: voting-app-pod
+      app: voting-app
   template:
-    metadata:
-      name: fbpod
+    metadata: 
+      name: voting-app-pod
       labels:
-        app: facebook
-        env: lab 
-        Version: AC_V1
+        name: voting-app-pod
+        app: voting-app
     spec:
       containers:
-        - name: fbcont1
-          image: devopshubg333/batch15d:mcfbapp
+        - name: voting-app-pod
+          image: dockersamples/examplevotingapp_vote
           ports:
             - containerPort: 80
+  replicas: 1
+    
